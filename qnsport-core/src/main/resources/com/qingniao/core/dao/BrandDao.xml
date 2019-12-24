@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qingniao.core.dao.BrandDao">
+	<insert id="addBrand" parameterType="Brand"  useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO qnsport_brand(name,description,logo,url,status) 
+		VALUES(#{name},#{description},#{logo},#{url},#{status})
+	</insert>
+	<sql id="sqlfiled">
+		id,name,description,logo,url,status
+	</sql>
+	<select id="getBrandExample" parameterType="BrandExample" resultType="BrandExample">
+		SELECT <include refid="sqlfiled"/> FROM qnsport_brand
+		<where>
+			<if test="status != null">
+				status=#{status}
+			</if>
+			<if test="name != null and name != ''">
+				and name like concat('%',#{name},'%')
+			</if>
+		</where>
+		order by id desc
+		<if test="startRow != null">
+			limit #{startRow},#{pageSize}
+		</if>
+	</select>
+	<select id="count" parameterType="BrandExample" resultType="Integer">
+		SELECT count(1) FROM qnsport_brand
+		<where>
+			<if test="status != null">
+				status=#{status}
+			</if>
+			<if test="name != null and name != ''">
+				and name like concat('%',#{name},'%')
+			</if>
+		</where>
+	</select>
+	<delete id="batchDelete" parameterType="Long[]">
+		delete from qnsport_brand
+		where id in
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<select id="getBrandById" parameterType="Long" resultType="Brand">
+		select <include refid="sqlfiled"/> from qnsport_brand where id = #{id}
+	</select>
+	<update id="updateById" parameterType="Brand">
+		update qnsport_brand 
+		<set>
+			<if test="name != null">
+				name=#{name},
+			</if>
+			<if test="description != null">
+				description=#{description},
+			</if>
+			<if test="logo != null">
+				logo=#{logo},
+			</if>
+			<if test="url != null">
+				url=#{url},
+			</if>
+			<if test="status != null">
+				status=#{status}
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	<select id="selectBrandByExample" parameterType="BrandExample" resultType="Brand">
+		SELECT <include refid="sqlfiled"/> FROM qnsport_brand
+		<where>
+			<if test="status != null">
+				status=#{status}
+			</if>
+			<if test="name != null and name != ''">
+				and name like concat('%',#{name},'%')
+			</if>
+		</where>
+	</select>
+</mapper>

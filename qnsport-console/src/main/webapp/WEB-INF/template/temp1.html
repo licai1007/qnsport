@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<#list ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"] as n>
+		${n}
+	</#list>
+	<br/>
+	<#list ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"] as n>
+		<#if n != "星期一">
+			${n}
+		</#if>
+	</#list>
+	<br/>
+	<#list ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"] as n>
+		<#if n_index != 0>
+			${n}
+		</#if>
+	</#list>
+	<br/>
+	<#list ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"] as n>
+		<#if n_index == 1 || n_index == 3>
+			${n}
+		</#if>
+	</#list>
+	<br/>
+	<#list ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"] as n>
+		<#if n_index == 1 || n_index ==3>
+			${n} --红色
+			<#else>
+			${n} --绿色
+		</#if>
+	</#list>
+</body>
+</html>
